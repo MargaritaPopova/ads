@@ -1,0 +1,20 @@
+[[source]]
+name = "pypi"
+url = "https://pypi.org/simple"
+verify_ssl = true
+
+[dev-packages]
+
+[packages]
+django = "==3.1.2"
+django-crispy-forms = "==1.9.2"
+django-debug-toolbar = "*"
+django-registration = "==3.1.1"
+django-extensions = "==3.0.9"
+djangorestframework= "==3.12.1"
+Pillow = "==8.0.1"
+social-auth-app-django = "==4.0.0"
+
+
+[requires]
+python_version = "3.8"

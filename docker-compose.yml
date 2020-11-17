@@ -1,0 +1,32 @@
+version: '3.8'
+services:
+
+  web:
+    build: ./
+    command: /bin/sh -c "python manage.py migrate
+              && python manage.py runserver 0.0.0.0:8000"
+    environment:
+      SQL_HOST: db
+    volumes:
+      - ./:/app/
+    ports:
+      - 8000:8000
+    depends_on:
+      - db
+    env_file:
+      - ./.en
+
+  db:
+    image: postgres:13
+    environment:
+      - POSTGRES_DB=ads
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=password
+      - PGDATA=/var/lib/postgresql/data/pgdata
+    volumes:
+      - ./postgres_data/pgdata:/var/lib/postgresql/data/pgdata
+    ports:
+    - 5432:5555
+
+
+
