@@ -1,4 +1,5 @@
 from hashlib import md5
+
 from django import template
 
 # https://brobin.me/blog/2016/07/super-simple-django-gravatar/

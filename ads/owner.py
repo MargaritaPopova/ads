@@ -1,6 +1,5 @@
-from django.views.generic import CreateView, UpdateView, DeleteView, ListView, DetailView
-
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.views.generic import CreateView, UpdateView, DeleteView, ListView, DetailView
 
 
 class OwnerListView(ListView):

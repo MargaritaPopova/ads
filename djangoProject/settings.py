@@ -4,7 +4,7 @@ import os
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # Used for a default title
-APP_NAME = 'ChucksList'
+APP_NAME = 'Ads'
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
@@ -17,7 +17,11 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
-# Application definition
+STATIC_URL = '/static/'
+STATICFILES_DIRS = [os.path.join(BASE_DIR + 'static')]
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -27,23 +31,19 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.humanize',
-    'autos.apps.AutosConfig',
-    'polls.apps.PollsConfig',
-    'cats.apps.CatsConfig',
     'home.apps.HomeConfig',
     'ads.apps.AdsConfig',
-
+    'unesco.apps.UnescoConfig',  # Add
 
     # Extensions - installed with pip3 / requirements.txt
-    'django_extensions', 
-    'crispy_forms',  
-    'rest_framework', 
+    'django_extensions',
+    'crispy_forms',
+    'rest_framework',
     'social_django',
     'django_registration',
 ]
 
-# When we get to crispy forms :)
-CRISPY_TEMPLATE_PACK = 'bootstrap3'  # Add
+CRISPY_TEMPLATE_PACK = 'bootstrap3'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -53,7 +53,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'social_django.middleware.SocialAuthExceptionMiddleware',   # Add
+    'social_django.middleware.SocialAuthExceptionMiddleware',
 ]
 
 ROOT_URLCONF = 'djangoProject.urls'
@@ -69,16 +69,15 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                'home.context_processors.settings',      # Add
-                'social_django.context_processors.backends',  # Add
-                'social_django.context_processors.login_redirect', # Add
+                'home.context_processors.settings',
+                'social_django.context_processors.backends',
+                'social_django.context_processors.login_redirect',
             ],
         },
     },
 ]
 
 WSGI_APPLICATION = 'djangoProject.wsgi.application'
-
 
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
@@ -89,7 +88,6 @@ DATABASES = {
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
@@ -110,7 +108,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/3.0/topics/i18n/
 
@@ -124,13 +121,9 @@ USE_L10N = True
 
 USE_TZ = True
 
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
-STATIC_URL = '/static/'
-
-# Add the settings below
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
@@ -141,7 +134,8 @@ REST_FRAMEWORK = {
 
 # Configure the social login
 try:
-    from . import github_settings 
+    from . import github_settings
+
     SOCIAL_AUTH_GITHUB_KEY = github_settings.SOCIAL_AUTH_GITHUB_KEY
     SOCIAL_AUTH_GITHUB_SECRET = github_settings.SOCIAL_AUTH_GITHUB_SECRET
 except:
@@ -158,10 +152,4 @@ AUTHENTICATION_BACKENDS = (
 )
 
 LOGOUT_REDIRECT_URL = '/'
-LOGIN_REDIRECT_URL = '/'
-
-# Don't set default LOGIN_URL - let django.contrib.auth set it when it is loaded
-# LOGIN_URL = '/accounts/login'
-
-# https://coderwall.com/p/uzhyca/quickly-setup-sql-query-logging-django
-# https://stackoverflow.com/questions/12027545/determine-if-django-is-running-under-the-development-server
+# LOGIN_REDIRECT_URL = '/' # doesn't work for Github login!
