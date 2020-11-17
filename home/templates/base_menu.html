@@ -1,39 +1,48 @@
 {% extends "base_bootstrap.html" %}
 {% block navbar %}
     {% load app_tags %}
-    <nav class="navbar navbar-default navbar-inverse">
-        <div class="container-fluid">
-            <div class="navbar-header">
-                <a class="navbar-brand" href="/">{{ settings.APP_NAME }}</a>
-            </div>
-            <ul class="nav navbar-nav">
-                {% url 'ads' as ads %}
-                <li {% if request.get_full_path == ads %}class="active"{% endif %}>
-                    <a href="{% url 'ads:all' %}">Ads</a></li>
-            </ul>
-            <ul class="nav navbar-nav navbar-right">
-                {% if user.is_authenticated %}
-                    <li>
-                        <a href="{% url 'ads:ad_create' %}">Create Ad</a>
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light row">
+  <a class="navbar-brand" href="#">Ads</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse col-9" id="navbarNavDropdown">
+    <ul class="navbar-nav">
+      {% url 'ads' as ads %}
+        <li {% if request.get_full_path == ads %}class="nav-item active"{% endif %}>
+                    <a href="{% url 'ads:all' %}" class="nav-link">All ads</a></li>
+    </ul>
+  </div>
+<div class="col navbar-nav">
+        {% if user.is_authenticated %}
+            <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'ads:ad_create' %}">Create Ad</a>
                     </li>
-                    <li class="dropdown">
-                        <a href="#" data-toggle="dropdown" class="dropdown-toggle">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink"
+                           role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <img style="width: 25px;" src="{{ user|gravatar:60 }}"/><b class="caret"></b>
                         </a>
-                        <ul class="dropdown-menu">
-                            <li><a href="#">Profile</a></li>
-                            <li><a href="{% url 'logout' %}?next={% url 'ads:all' %}">Logout</a></li>
-                        </ul>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                            <a class="dropdown-item" href="#">Profile</a>
+                            <a class="dropdown-item" href="{% url 'logout' %}?next={% url 'ads:all' %}">Logout</a>
+                        </div>
                     </li>
-                {% else %}
-                    <li>
-                        <a href="{% url 'login' %}?next={% url 'ads:all' %}">Login</a>
-                    </li>
-                    <li>
-                        <a href="{% url 'django_registration_register' %}?next={% url 'ads:all' %}">Register</a>
-                    </li>
-                {% endif %}
             </ul>
+                {% else %}
+            <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a href="{% url 'login' %}?next={% url 'ads:all' %}" class="nav-link">Login</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{% url 'django_registration_register' %}?next={% url 'ads:all' %}"
+                           class="nav-link">Register</a>
+                    </li>
+            </ul>
+                {% endif %}
+
         </div>
-    </nav>
+</nav>
 {% endblock %}

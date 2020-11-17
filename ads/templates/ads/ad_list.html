@@ -1,29 +1,31 @@
 {% extends "base_menu.html" %}
 {% block content %}
-    <h1>Ads</h1>
     <p>
-    <div class="col-3">
-        <!-- https://www.w3schools.com/howto/howto_css_search_button.asp -->
+    <div class="col-6 mb-3">
         <form class="form-inline my-2 my-lg-0">
             <input class="form-control mr-sm-2" type="search" placeholder="Search.." name="search"
                     {% if search %} value="{{ search }}" {% endif %}
             aria-label="Search">
             <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-            <a href="{% url 'ads:all' %}"><i class="fa fa-undo"></i></a>
+            <a href="{% url 'ads:all' %}" class="ml-2"><i class="fa fa-undo"></i></a>
         </form>
     </div>
+    <div class="row">
     {% if ad_list %}
-        <ul>
-            {% for ad in ad_list %}
-                <li>
-                    <a href="{% url 'ads:ad_detail'  ad.id %}">{{ ad.title }}</a>
-                    {% if ad.owner == user %}
-                        (<a href="{% url 'ads:ad_update' ad.id %}">Edit</a> |
-                        <a href="{% url 'ads:ad_delete' ad.id %}">Delete</a>)
-                    {% endif %}
-                    {% if user.is_authenticated %}
+                 {% for ad in ad_list %}
+                <div class="card m-2" style="width: 18rem;">
+  {% if ad.content_type %}
+        <img class="card-img-top" src="{% url 'ads:ad_picture' ad.id %}" alt="{{ ad.title }}">
+      {% else %}
+      <img class="card-img-top" src="..." alt="{{ ad.title }}">
+    {% endif %}
+  <div class="card-body">
+    <h5 class="card-title">{{ ad.title }}</h5>
+    <p class="card-text"> {{ ad.text }}</p>
+      <a href="{% url 'ads:ad_detail'  ad.id %}" class="btn btn-success">See detail</a>
+      {% if user.is_authenticated %}
                         <!-- Two hrefs with two stacked icons each - one showing and one hidden -->
-                        <a href="#" onclick=
+                        <a href="#" class="text-decoration-none" onclick=
                                 "favPost('{% url 'ads:ad_unfavorite' ad.id %}', {{ ad.id }});return false;"
                                 {% if ad.id not in favorites %} style="display: none;" {% endif %}
                            id="favorite_star_{{ ad.id }}">
@@ -33,7 +35,7 @@
                         </span>{{ ad.get_likes }}
                         </a>
                         <!-- the second href -->
-                        <a href="#" onclick=
+                        <a href="#" class="text-decoration-none" onclick=
                                 "favPost('{% url 'ads:ad_favorite' ad.id %}', {{ ad.id }});return false;"
                                 {% if ad.id in favorites %} style="display: none;" {% endif %}
                            id="unfavorite_star_{{ ad.id }}">
@@ -43,13 +45,15 @@
                         </span>{{ ad.get_likes }}
                         </a>
                     {% endif %}
-                </li>
+  </div>
+</div>
             {% endfor %}
-        </ul>
     {% else %}
         <p>There are no ads in the database.</p>
     {% endif %}
-    </p>
+    </div>
+
+
     <script>
         function favPost(url, ad_id) {
             console.log('Requesting JSON');
