@@ -23,6 +23,9 @@ class Ad(models.Model):
     def __str__(self):
         return self.title
 
+    def get_likes(self):
+        return Fav.objects.filter(ad=self).count()
+
 
 class Comment(models.Model):
     text = models.TextField(
@@ -48,3 +51,6 @@ class Fav(models.Model):
 
     def __str__(self):
         return '%s likes %s' % (self.user.username, self.ad.title[:10])
+
+
+

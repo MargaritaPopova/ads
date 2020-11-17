@@ -24,19 +24,20 @@ class AdListView(OwnerListView):
         if search:
             query = Q(title__contains=search)
             query.add(Q(text__contains=search), Q.OR)
-            objects = Ad.objects.filter(query).select_related().order_by('-updated_at')[:10]
+            ads = Ad.objects.filter(query).select_related().order_by('-updated_at')[:10]
         else:
-            objects = Ad.objects.all().order_by('-updated_at')[:10]
+            ads = Ad.objects.all().order_by('-updated_at')[:10]
 
         # Augment the post_list
-        for obj in objects:
+        for obj in ads:
             obj.natural_updated = naturaltime(obj.updated_at)
 
         favorites = list()
         if request.user.is_authenticated:
             rows = request.user.favorite_ads.values('id')
             favorites = [row['id'] for row in rows]
-        ctx = {'ad_list': objects, 'search': search, 'favorites': favorites}
+
+        ctx = {'ad_list': ads, 'search': search, 'favorites': favorites}
 
         return render(request, self.template_name, ctx)
 

@@ -4,11 +4,11 @@
     <p>
     <div class="col-3">
         <!-- https://www.w3schools.com/howto/howto_css_search_button.asp -->
-        <form>
-            <input type="text" placeholder="Search.." name="search"
+        <form class="form-inline my-2 my-lg-0">
+            <input class="form-control mr-sm-2" type="search" placeholder="Search.." name="search"
                     {% if search %} value="{{ search }}" {% endif %}
-            >
-            <button type="submit"><i class="fa fa-search"></i></button>
+            aria-label="Search">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
             <a href="{% url 'ads:all' %}"><i class="fa fa-undo"></i></a>
         </form>
     </div>
@@ -24,23 +24,23 @@
                     {% if user.is_authenticated %}
                         <!-- Two hrefs with two stacked icons each - one showing and one hidden -->
                         <a href="#" onclick=
-                                "favPost('{% url 'ads:ad_unfavorite' ad.id %}', {{ ad.id }} );return false;"
+                                "favPost('{% url 'ads:ad_unfavorite' ad.id %}', {{ ad.id }});return false;"
                                 {% if ad.id not in favorites %} style="display: none;" {% endif %}
                            id="favorite_star_{{ ad.id }}">
-        <span class="fa-stack" style="vertical-align: middle;">
-        <i class="fa fa-star fa-stack-1x" style="color: orange;"></i>
-        <i class="fa fa-star-o fa-stack-1x"></i>
-        </span>
+                        <span class="fa-stack" style="vertical-align: middle;">
+                        <i class="fa fa-heart fa-stack-1x" style="color: #337ab7;"></i>
+                        <i class="fa fa-heart-o fa-stack-1x"></i>
+                        </span>{{ ad.get_likes }}
                         </a>
                         <!-- the second href -->
                         <a href="#" onclick=
-                                "favPost('{% url 'ads:ad_favorite' ad.id %}', {{ ad.id }} );return false;"
+                                "favPost('{% url 'ads:ad_favorite' ad.id %}', {{ ad.id }});return false;"
                                 {% if ad.id in favorites %} style="display: none;" {% endif %}
                            id="unfavorite_star_{{ ad.id }}">
-        <span class="fa-stack" style="vertical-align: middle;">
-        <i class="fa fa-star fa-stack-1x" style="display: none; color: orange;"></i>
-        <i class="fa fa-star-o fa-stack-1x"></i>
-        </span>
+                        <span class="fa-stack" style="vertical-align: middle;">
+                        <i class="fa fa-heart fa-stack-1x" style="display: none; color: #337ab7;"></i>
+                        <i class="fa fa-heart-o fa-stack-1x"></i>
+                        </span>{{ ad.get_likes }}
                         </a>
                     {% endif %}
                 </li>
