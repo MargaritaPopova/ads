@@ -1,0 +1,9 @@
+title, price, text, content_type
+Bicycle,400,"Great thing for riding around!",image/jpeg
+Car,1000,"Good condition, mileage 2000",image/jpeg
+Crib,200,"Slightly used but in great condition",image/jpeg
+Phone,3000,"Brand new phone, color black",image/jpeg
+Coat,3290,"Fur coat for cold weather",image/jpeg
+Book,480,"Learning book for students",image/jpeg
+Cat,2300,"Luxury breed, exibit winner",image/jpeg
+Lamp,500,"Designer table lamp",image/jpeg
