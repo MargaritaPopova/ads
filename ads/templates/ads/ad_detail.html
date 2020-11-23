@@ -1,56 +1,44 @@
 {% extends "base_menu.html" %}
+{% load static %}
 {% load crispy_forms_filters %}
 {% load humanize %} <!-- https://docs.djangoproject.com/en/3.0/ref/contrib/humanize -->
 {% block head %}
-    <style>
-        .overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 10;
-            display: none;
-            background-color: rgba(0, 0, 0, 0.5); /*dim the background*/
-        }
-    </style>
 {% endblock %}
 {% block content %}
     {% if ad.content_type %}
-        <div id="overlay" class="overlay" style="text-align: center;"
-             onclick="document.getElementById('overlay').style.display = 'none';">
-            <img style="width:50%;margin-top: 50px; border:3px solid black;" src="{% url 'ads:ad_picture' ad.id %}">
+        <div id="overlay" class="overlay text-center" onclick="document.getElementById('overlay').style.display = 'none';">
+            <img id="img-overlay" src="{% url 'ads:ad_picture' ad.id %}" alt="{{ ad.title }}">
         </div>
     {% endif %}
     <span style="float: right;">
-({{ ad.updated_at|naturaltime }})
+(Updated {{ ad.updated_at|naturaltime }})
         {% if ad.owner == user %}
-            <a href="{% url 'ads:ad_update' ad.id %}"><i class="fa fa-pencil"></i></a>
-            <a href="{% url 'ads:ad_delete' ad.id %}"><i class="fa fa-trash"></i></a>
+            <a href="{% url 'ads:ad_update' ad.id %}"><i class="fa fa-pencil" style="color: #1c7430"></i></a>
+            <a href="{% url 'ads:ad_delete' ad.id %}"><i class="fa fa-trash" style="color: darkred"></i></a>
         {% endif %}
 </span>
     <h1>{{ ad.title }}</h1>
+    <div class="row">
+    <div class="col-4">
     {% if ad.content_type %}
-        <img style="float:right; max-width:50%;" src="{% url 'ads:ad_picture' ad.id %}"
-             onclick="document.getElementById('overlay').style.display = 'block';">
+        <img class="rounded w-100 border border-dark ad-image" src="{% url 'ads:ad_picture' ad.id %}"
+             alt="{{ ad.title }}" onclick="document.getElementById('overlay').style.display = 'block';">
+    {% else %}
+        <img class="rounded w-100 border border-dark ad-image" src="{% static 'no-image.jpg' %}" alt="{{ ad.title }}">
     {% endif %}
-    <p>
-        {{ ad.text }}
-    </p>
-    <p>
-    </p>
-    <p>
-        <a href="{% url 'ads:all' %}">All ads</a>
-    </p>
+    </div>
+    <div class="col-8">
+        <p>{{ ad.text }}</p>
+        </div>
+    </div>
     {% if user.is_authenticated %}
-        <br clear="all"/>
         <p>
             {% load crispy_forms_tags %}
         <form method="post" action="{% url 'ads:ad_comment_create' ad.id %}">
             {% csrf_token %}
             {{ comment_form|crispy }}
-            <input type="submit" value="Submit">
-            <input type="submit" value="All Ads" onclick="window.location.href='{% url 'ads:all' %}';return false;">
+            <input type="submit" class="btn btn-success" value="Submit">
+            <input type="submit" class="btn btn-outline-success" value="Cancel" onclick="window.location.href='{% url 'ads:all' %}';return false;">
         </form>
         </p>
     {% endif %}

@@ -1,63 +1,75 @@
 {% extends "base_menu.html" %}
+{% load humanize %}
+{% load static %}
 {% block content %}
     <p>
-    <div class="col-6 mb-3">
+    <div class="mb-3">
         <form class="form-inline my-2 my-lg-0">
             <input class="form-control mr-sm-2" type="search" placeholder="Search.." name="search"
                     {% if search %} value="{{ search }}" {% endif %}
-            aria-label="Search">
-            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                   aria-label="Search">
+            <button class="btn btn-outline-success btn my-2 my-sm-0" type="submit">Search</button>
             <a href="{% url 'ads:all' %}" class="ml-2"><i class="fa fa-undo"></i></a>
         </form>
     </div>
     <div class="row">
-    {% if ad_list %}
-                 {% for ad in ad_list %}
-                <div class="card m-2" style="width: 18rem;">
-  {% if ad.content_type %}
-        <img class="card-img-top" src="{% url 'ads:ad_picture' ad.id %}" alt="{{ ad.title }}">
-      {% else %}
-      <img class="card-img-top" src="..." alt="{{ ad.title }}">
-    {% endif %}
-  <div class="card-body">
-    <h5 class="card-title">{{ ad.title }}</h5>
-    <p class="card-text"> {{ ad.text }}</p>
-      <a href="{% url 'ads:ad_detail'  ad.id %}" class="btn btn-success">See detail</a>
-      {% if user.is_authenticated %}
-                        <!-- Two hrefs with two stacked icons each - one showing and one hidden -->
-                        <a href="#" class="text-decoration-none" onclick=
-                                "favPost('{% url 'ads:ad_unfavorite' ad.id %}', {{ ad.id }});return false;"
-                                {% if ad.id not in favorites %} style="display: none;" {% endif %}
-                           id="favorite_star_{{ ad.id }}">
+        {% if ad_list %}
+
+            {% for ad in ad_list %}
+
+                <div class="card mb-3 mx-auto" style="max-width: 540px;">
+                    <div class="row no-gutters">
+                        <div class="col-md-4">
+                            {% if ad.content_type %}
+                                <img class="card-img" src="{% url 'ads:ad_picture' ad.id %}" alt="{{ ad.title }}">
+                            {% else %}
+                                <img class="card-img" src="{% static 'no-image.jpg' %}" alt="{{ ad.title }}">
+                            {% endif %}
+                        </div>
+                        <div class="col-md-8">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ ad.title }}</h5>
+                                <p class="card-text">{{ ad.text }}</p>
+                                <a href="{% url 'ads:ad_detail'  ad.id %}" class="btn btn-sm btn-success stretched-link">See detail</a>
+                                {% if user.is_authenticated %}
+                                    <!-- Two hrefs with two stacked icons each - one showing and one hidden -->
+                                    <a href="#" class="text-decoration-none" onclick=
+                                            "favPost('{% url 'ads:ad_unfavorite' ad.id %}', {{ ad.id }});return false;"
+                                            {% if ad.id not in favorites %} style="display: none;" {% endif %}
+                                       id="favorite_star_{{ ad.id }}">
                         <span class="fa-stack" style="vertical-align: middle;">
                         <i class="fa fa-heart fa-stack-1x" style="color: #337ab7;"></i>
                         <i class="fa fa-heart-o fa-stack-1x"></i>
                         </span>{{ ad.get_likes }}
-                        </a>
-                        <!-- the second href -->
-                        <a href="#" class="text-decoration-none" onclick=
-                                "favPost('{% url 'ads:ad_favorite' ad.id %}', {{ ad.id }});return false;"
-                                {% if ad.id in favorites %} style="display: none;" {% endif %}
-                           id="unfavorite_star_{{ ad.id }}">
+                                    </a>
+                                    <!-- the second href -->
+                                    <a href="#" class="text-decoration-none" onclick=
+                                            "favPost('{% url 'ads:ad_favorite' ad.id %}', {{ ad.id }});return false;"
+                                            {% if ad.id in favorites %} style="display: none;" {% endif %}
+                                       id="unfavorite_star_{{ ad.id }}">
                         <span class="fa-stack" style="vertical-align: middle;">
                         <i class="fa fa-heart fa-stack-1x" style="display: none; color: #337ab7;"></i>
                         <i class="fa fa-heart-o fa-stack-1x"></i>
                         </span>{{ ad.get_likes }}
-                        </a>
-                    {% endif %}
-  </div>
-</div>
+                                    </a>
+                                {% endif %}
+                                <p class="card-text"><small class="text-muted">Last
+                                    updated {{ ad.updated_at|naturaltime }}</small></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             {% endfor %}
-    {% else %}
-        <p>There are no ads in the database.</p>
-    {% endif %}
+        {% else %}
+            <p>There are no ads in the database.</p>
+        {% endif %}
     </div>
 
 
     <script>
         function favPost(url, ad_id) {
             console.log('Requesting JSON');
-            $.post(url, {}, function (rowz) {
+            $.post(url, {}, function () {
                 console.log(url, 'finished');
                 $("#unfavorite_star_" + ad_id).toggle();
                 $("#favorite_star_" + ad_id).toggle();

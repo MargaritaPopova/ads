@@ -2,19 +2,20 @@
 {% block navbar %}
     {% load app_tags %}
 
-    <nav class="navbar navbar-expand-lg navbar-light bg-light row">
-  <a class="navbar-brand" href="#">Ads</a>
+    <nav class="navbar navbar-expand-lg navbar-light bg-success">
+    <div class="row px-5">
+      <a class="navbar-brand" href="#">Ads</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
-  <div class="collapse navbar-collapse col-9" id="navbarNavDropdown">
+  <div class="collapse navbar-collapse" id="navbarNavDropdown">
     <ul class="navbar-nav">
       {% url 'ads' as ads %}
         <li {% if request.get_full_path == ads %}class="nav-item active"{% endif %}>
                     <a href="{% url 'ads:all' %}" class="nav-link">All ads</a></li>
     </ul>
   </div>
-<div class="col navbar-nav">
+<div class="navbar-nav">
         {% if user.is_authenticated %}
             <ul class="navbar-nav">
                     <li class="nav-item">
@@ -44,5 +45,6 @@
                 {% endif %}
 
         </div>
+    </div>
 </nav>
 {% endblock %}
