@@ -29,7 +29,6 @@ INSTALLED_APPS = [
     'django.contrib.humanize',
     'home.apps.HomeConfig',
     'ads.apps.AdsConfig',
-    'unesco.apps.UnescoConfig',  # Add
 
     'django_extensions',
     'crispy_forms',
