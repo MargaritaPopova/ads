@@ -1,0 +1,13 @@
+{% extends "base_menu.html" %}
+{% load static %}
+{% load crispy_forms_filters %}
+
+{% block content %}
+
+        <div id="overlay" class="overlay text-center" onclick="document.getElementById('overlay').style.display = 'none';">
+            <img id="img-overlay" src="{{ user.picture.url }}" alt="">
+        </div>
+    <img style="width: 20%" class="rounded border border-dark ad-image" src="{{ user.picture.url }}"
+             alt="" onclick="document.getElementById('overlay').style.display = 'block';">
+    {{ user.user.id }} {{ user.user.username }}
+{% endblock %}

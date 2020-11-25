@@ -12,12 +12,12 @@
             <a href="{% url 'ads:all' %}" class="ml-2"><i class="fa fa-undo"></i></a>
         </form>
     </div>
-    <div class="row">
+    <div class="row justify-content-around">
         {% if ad_list %}
 
             {% for ad in ad_list %}
 
-                <div class="card mb-3 mx-auto" style="max-width: 540px;">
+                <div class="card mb-3 mx-auto" style="width: 45%;">
                     <div class="row no-gutters">
                         <div class="col-md-4">
                             {% if ad.content_type %}
@@ -30,7 +30,7 @@
                             <div class="card-body">
                                 <h5 class="card-title">{{ ad.title }}</h5>
                                 <p class="card-text">{{ ad.text }}</p>
-                                <a href="{% url 'ads:ad_detail'  ad.id %}" class="btn btn-sm btn-success stretched-link">See detail</a>
+                                <a href="{% url 'ads:ad_detail'  ad.id %}" class="btn btn-sm btn-success">See detail</a>
                                 {% if user.is_authenticated %}
                                     <!-- Two hrefs with two stacked icons each - one showing and one hidden -->
                                     <a href="#" class="text-decoration-none" onclick=

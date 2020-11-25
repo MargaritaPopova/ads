@@ -8,7 +8,7 @@ from django.urls import reverse_lazy, reverse
 from django.utils.decorators import method_decorator
 from django.views import View
 from django.views.decorators.csrf import csrf_exempt
-
+from home.models import UserProfile
 from .forms import CreateForm, CommentForm
 from .models import Ad, Comment, Fav
 from .owner import OwnerListView, OwnerDetailView, OwnerDeleteView
@@ -48,9 +48,16 @@ class AdDetailView(OwnerDetailView):
 
     def get(self, request, pk):
         ad = Ad.objects.get(id=pk)
-        comments = Comment.objects.filter(ad=ad).order_by('-updated_at')
+        comm = Comment.objects.filter(ad=ad).order_by('updated_at')
+        user_profiles = [UserProfile.objects.get(user=comment.owner) for comment in comm]
+        comments = {comment: profile for comment, profile in list(zip(comm, user_profiles))}
         comment_form = CommentForm()
-        context = {'ad': ad, 'comments': comments, 'comment_form': comment_form}
+        context = {
+            'ad': ad,
+            'comments': comments,
+            'comment_form': comment_form,
+            'comments_count': len(comm)
+        }
         return render(request, self.template_name, context)
 
 

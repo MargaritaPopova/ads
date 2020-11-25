@@ -1,8 +1,9 @@
 from django.urls import reverse
-from factory import django
 from django.test import TestCase
 from django.test import Client
 from django.contrib.auth.models import User
+from factory import django
+
 from .models import Ad
 
 
@@ -34,11 +35,15 @@ class TestAd(TestCase):
         self.assertEqual(self.ad.get_likes(), 0)
 
 
-class TestListView(TestCase):
-
+class TestViewBasic(TestCase):
     def setUp(self):
         self.client = Client()
         self.user = User.objects.create_user(username='testuser', password='12345678qwerty')
+
+
+class TestListView(TestViewBasic):
+    def setUp(self):
+        super(TestListView, self).setUp()
         self.response = self.client.get(reverse('ads:all'))
 
     def test_index(self):
@@ -57,22 +62,20 @@ class TestListView(TestCase):
     def test_menu(self):
         print(f'testing {self.__class__.__name__}: {self.test_menu.__name__}')
         self.assertContains(self.response, 'Login')
-        self.client.login(username='testuser', password='12345678qwerty')
-        response = self.client.get('/')
+        self.client.force_login(self.user)
+        response = self.client.get(reverse('ads:all'))
         self.assertContains(response, 'Logout')
         self.client.logout()
 
 
-class TestCreateView(TestCase):
-
+class TestCreateView(TestViewBasic):
     def setUp(self):
-        self.client = Client()
-        self.user = User.objects.create_user(username='testuser', password='12345678qwerty')
+        super(TestCreateView, self).setUp()
         self.ad = AdFactory.build(owner=self.user)
         self.url = reverse('ads:ad_create')
 
-    def test_post(self):
-        print(f'testing {self.__class__.__name__}: {self.test_post.__name__}')
+    def test_create(self):
+        print(f'testing {self.__class__.__name__}: {self.test_create.__name__}')
 
         self.client.login(username='testuser', password='12345678qwerty')
         self.client.post(self.url,

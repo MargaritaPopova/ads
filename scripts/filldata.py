@@ -61,12 +61,14 @@ def run():
         title = row[0]
         price = row[1]
         text = row[2]
-        content_type = row[3]
+        fulldesc = row[3]
+        content_type = row[4]
 
         ad = Ad.objects.create(
             title=title,
             price=price,
             text=text,
+            fulldesc=fulldesc,
             owner=random.choice(User.objects.all()),
             content_type=content_type
         )

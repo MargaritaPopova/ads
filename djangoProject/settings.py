@@ -137,3 +137,4 @@ AUTHENTICATION_BACKENDS = (
 
 LOGOUT_REDIRECT_URL = '/'
 # LOGIN_REDIRECT_URL = '/' # doesn't work for Github login!
+

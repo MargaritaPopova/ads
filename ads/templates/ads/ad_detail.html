@@ -6,50 +6,75 @@
 {% endblock %}
 {% block content %}
     {% if ad.content_type %}
-        <div id="overlay" class="overlay text-center" onclick="document.getElementById('overlay').style.display = 'none';">
+        <div id="overlay" class="overlay text-center"
+             onclick="document.getElementById('overlay').style.display = 'none';">
             <img id="img-overlay" src="{% url 'ads:ad_picture' ad.id %}" alt="{{ ad.title }}">
         </div>
     {% endif %}
     <span style="float: right;">
 (Updated {{ ad.updated_at|naturaltime }})
         {% if ad.owner == user %}
-            <a href="{% url 'ads:ad_update' ad.id %}"><i class="fa fa-pencil" style="color: #1c7430"></i></a>
-            <a href="{% url 'ads:ad_delete' ad.id %}"><i class="fa fa-trash" style="color: darkred"></i></a>
+            <a href="{% url 'ads:ad_update' ad.id %}">Edit</a> |
+            <a href="{% url 'ads:ad_delete' ad.id %}">Delete</a>
         {% endif %}
 </span>
     <h1>{{ ad.title }}</h1>
     <div class="row">
-    <div class="col-4">
-    {% if ad.content_type %}
-        <img class="rounded w-100 border border-dark ad-image" src="{% url 'ads:ad_picture' ad.id %}"
-             alt="{{ ad.title }}" onclick="document.getElementById('overlay').style.display = 'block';">
-    {% else %}
-        <img class="rounded w-100 border border-dark ad-image" src="{% static 'no-image.jpg' %}" alt="{{ ad.title }}">
-    {% endif %}
-    </div>
-    <div class="col-8">
-        <p>{{ ad.text }}</p>
+        <div class="col-4">
+            {% if ad.content_type %}
+                <img class="rounded w-100 border border-dark ad-image" src="{% url 'ads:ad_picture' ad.id %}"
+                     alt="{{ ad.title }}" onclick="document.getElementById('overlay').style.display = 'block';">
+            {% else %}
+                <img class="rounded w-100 border border-dark ad-image" src="{% static 'no-image.jpg' %}"
+                     alt="{{ ad.title }}">
+            {% endif %}
+        </div>
+        <div class="col-8">
+            <h4>{{ ad.text }}</h4>
+            <p>{{ ad.fulldesc }}</p>
         </div>
     </div>
+
+    <div class="page-header mt-5">
+        <h4>Comments <small class="float-right text-muted">{{ comments_count }} comment{{ comments_count|pluralize }}</small></h4>
+    </div>
+    <div class="row rounded bg-light my-3">
+
+        <div class="col">
+            <div class="comments-list">
+                {% for comment, profile in comments.items %}
+
+                    <div class="media">
+                        <a class="float-left mr-3 mt-2" href="{% url 'home:profile' comment.owner.id %}">
+                            <img src="{{ profile.picture.url }}" alt="{{ profile.user.username }}" style="width: 50px">
+                        </a>
+                        <div class="media-body">
+                            {% if user == comment.owner %}
+                                <a href="{% url 'ads:ad_comment_delete' comment.id %}"
+                                   class="float-right small">Delete</a>
+                            {% endif %}
+                            <h5 class="media-heading user_name">{{ comment.owner.get_username }} wrote:</h5>
+                            <p>{{ comment.text }}</p>
+                            <p><small class="text-muted">({{ comment.updated_at|naturaltime }})</small></p>
+                        </div>
+
+
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
     {% if user.is_authenticated %}
-        <p>
+        <p class="mb-3">
             {% load crispy_forms_tags %}
         <form method="post" action="{% url 'ads:ad_comment_create' ad.id %}">
             {% csrf_token %}
             {{ comment_form|crispy }}
             <input type="submit" class="btn btn-success" value="Submit">
-            <input type="submit" class="btn btn-outline-success" value="Cancel" onclick="window.location.href='{% url 'ads:all' %}';return false;">
+            <input type="submit" class="btn btn-outline-success" value="Cancel"
+                   onclick="window.location.href='{% url 'ads:all' %}';return false;">
         </form>
         </p>
     {% endif %}
-
-    {% for comment in comments %}
-        <p><strong>{{ comment.owner.get_username }} wrote: </strong></p>
-        <p> {{ comment.text }}
-            ({{ comment.updated_at|naturaltime }})
-            {% if user == comment.owner %}
-                <a href="{% url 'ads:ad_comment_delete' comment.id %}"><i class="fa fa-trash"> </i></a>
-            {% endif %}
-        </p>
-    {% endfor %}
 {% endblock %}

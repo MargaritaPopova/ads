@@ -1,8 +1,7 @@
 from django import forms
 from django.core.files.uploadedfile import InMemoryUploadedFile
-
 from ads.humanize import naturalsize
-from ads.models import Ad
+from ads.models import Ad, Comment
 
 
 class CreateForm(forms.ModelForm):
@@ -13,7 +12,11 @@ class CreateForm(forms.ModelForm):
 
     class Meta:
         model = Ad
-        fields = ['title', 'text', 'price', 'picture']
+        labels = {
+            'text': 'Short description',
+            'fulldesc': 'Full description',
+        }
+        fields = ['title', 'text', 'fulldesc', 'price', 'picture']
 
     def clean(self):
         """
@@ -49,4 +52,11 @@ class CreateForm(forms.ModelForm):
 
 
 class CommentForm(forms.Form):
-    comment = forms.CharField(required=True, max_length=500, min_length=3, strip=True)
+    comment = forms.CharField(required=False, max_length=500, min_length=3, strip=True)
+
+    class Meta:
+        model = Comment
+        labels = {
+            'text': 'Leave a comment',
+        }
+        fields = ['text']
