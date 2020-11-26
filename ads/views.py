@@ -48,15 +48,13 @@ class AdDetailView(OwnerDetailView):
 
     def get(self, request, pk):
         ad = Ad.objects.get(id=pk)
-        comm = Comment.objects.filter(ad=ad).order_by('updated_at')
-        user_profiles = [UserProfile.objects.get(user=comment.owner) for comment in comm]
-        comments = {comment: profile for comment, profile in list(zip(comm, user_profiles))}
+        comments = Comment.objects.filter(ad=ad).order_by('updated_at')
         comment_form = CommentForm()
         context = {
             'ad': ad,
             'comments': comments,
             'comment_form': comment_form,
-            'comments_count': len(comm)
+            'comments_count': len(comments)
         }
         return render(request, self.template_name, context)
 
