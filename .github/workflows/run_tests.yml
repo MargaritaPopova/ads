@@ -30,6 +30,7 @@ jobs:
           pip install -r requirements.txt
 
       - name: Run migrations
+        uses: dschep/install-pipenv-action@v1
         run: pipenv run python manage.py migrate
 
       - name: Run tests
