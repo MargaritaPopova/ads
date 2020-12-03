@@ -21,7 +21,7 @@ jobs:
         run: sudo apt-get install python-dev libpq-dev
 
       - name: pipenv installation
-        run: sudo apt-get install pipenv
+        run: sudo apt install pipenv
 
       - name: Install dependencies
         run: |
