@@ -20,8 +20,8 @@ jobs:
       - name: psycopg2 prerequisites
         run: sudo apt-get install python-dev libpq-dev
 
-      - name: pipenv installation
-        run: sudo apt install pipenv
+      - name: Install pipenv
+        uses: dschep/install-pipenv-action@v1
 
       - name: Install dependencies
         run: |
