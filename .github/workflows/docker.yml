@@ -42,6 +42,12 @@ jobs:
           cache-from: type=local,src=/tmp/.buildx-cache
           cache-to: type=local,dest=/tmp/.buildx-cache
 
+      - name: Run migrations
+        run: pipenv run python manage.py migrate
+
+      - name: Run tests
+        run: pipenv run python python manage.py test
+
       - name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
 
