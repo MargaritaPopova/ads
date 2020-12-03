@@ -17,10 +17,15 @@ jobs:
         with:
           python-version: 3.8
 
+      - name: psycopg2 prerequisites
+        run: sudo apt-get install python-dev libpq-dev
+
+      - name: pipenv installation
+        run: sudo apt-get install pipenv
+
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install pipenv
           pipenv lock --requirements > requirements.txt
           pip install -r requirements.txt
 
