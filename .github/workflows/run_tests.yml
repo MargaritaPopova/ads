@@ -33,6 +33,6 @@ jobs:
         SECRET_KEY: ${{ secrets.SECRET_KEY }}
       run: |
         python manage.py migrate
-        pytest
+        pytest --disable-warnings
           
 
