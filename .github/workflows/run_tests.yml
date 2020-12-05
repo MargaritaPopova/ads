@@ -28,11 +28,9 @@ jobs:
         pip install -r requirements.txt
         pip install psycopg2-binary
         pip install pytest-django
-    - name: Set up SECRET_KEY
+    - name: Run migrations
       env:
         SECRET_KEY: ${{ secrets.SECRET_KEY }}
-      run: python manage.py check
-    - name: Run migrations
       run: python manage.py migrate
     - name: Run tests
       run: pytest
