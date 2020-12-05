@@ -19,15 +19,12 @@ jobs:
       - name: 2. Install pip
         run: |
           python -m pip install --upgrade pip
-      - name: 3. Install pipenv
+      - name: 3. Install pipenv & dependencies
         run: |
           pip install pipenv
-          PIPENV_DOTENV_LOCATION=.en
-      - name: 4. Install dependencies & migrate & test
-        run: |
           pipenv install -d
-          pipenv graph
-          pipenv run python manage.py migrate
-          pipenv run python manage.py test
+      - name: 4. Docker-compose
+        run: |
+          docker-compose up --build
           
 
