@@ -97,3 +97,6 @@ class TestCreateView(TestViewBasic):
         response = self.client.get(self.url)
         self.assertEqual(response.status_code, 200)
 
+    # - name: Run migrations
+    #   env: ${{ secrets.SECRET_KEY }}
+    #   run: python manage.py migrate
