@@ -30,9 +30,9 @@ jobs:
           pip list
       - name: 6. Make migrations
         run: |
-          python manage.py migrate
+          pipenv run python manage.py migrate
       - name: 8. Run test
         run: |
-          python manage.py test
+          pipenv run python manage.py test
           
 
