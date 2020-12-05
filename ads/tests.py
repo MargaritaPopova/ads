@@ -16,6 +16,7 @@ class AdFactory(django.DjangoModelFactory):
     text = 'Brand new phone, color black'
     content_type = 'image/jpeg'
     picture = 'static/phone.jpg'
+    fulldesc = 'lorem ipsum'
 
 
 class TestAd(TestCase):
@@ -79,7 +80,11 @@ class TestCreateView(TestViewBasic):
 
         self.client.login(username='testuser', password='12345678qwerty')
         self.client.post(self.url,
-                         {'title': self.ad.title, 'text': self.ad.text, 'price': self.ad.price})
+                         {'title': self.ad.title,
+                          'text': self.ad.text,
+                          'price': self.ad.price,
+                          'fulldesc': self.ad.fulldesc,
+                          })
         response = self.client.get(reverse('ads:all'))
 
         with self.subTest():
