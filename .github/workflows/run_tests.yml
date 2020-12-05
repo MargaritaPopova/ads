@@ -25,7 +25,7 @@ jobs:
           PIPENV_DOTENV_LOCATION=.en
       - name: 4. Install dependencies & migrate & test
         run: |
-          pipenv install -d --system
+          pipenv install -d
           pipenv graph
           pipenv run python manage.py migrate
           pipenv run python manage.py test
