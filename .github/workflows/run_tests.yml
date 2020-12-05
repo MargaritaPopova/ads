@@ -25,12 +25,13 @@ jobs:
           PIPENV_DOTENV_LOCATION=.en
       - name: 4. Install dependencies
         run: |
-          pipenv install --dev --system
+          pipenv install -d --system
       - name: 5. List dependencies
         run: |
           pip list
       - name: 6. Make migrations
         run: |
+          pipenv graph
           pipenv run python manage.py migrate
       - name: 8. Run test
         run: |
