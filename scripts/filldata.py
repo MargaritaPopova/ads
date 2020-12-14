@@ -125,11 +125,12 @@ def create_comments():
     ads = Ad.objects.all()
     users = User.objects.all()
     for ad in ads:
-        mixer.cycle(3).blend(Comment,
-                             text=mixer.faker.sentence(nb_words=10),
-                             ad=ad,
-                             owner=random.choice(users)
-                             )
+        for _ in range(random.randint(3, 8)):
+            mixer.blend(Comment,
+                        text=mixer.faker.sentence(nb_words=random.randint(5, 15)),
+                        ad=ad,
+                        owner=random.choice(users)
+                        )
     print('Comments created!')
 
 
