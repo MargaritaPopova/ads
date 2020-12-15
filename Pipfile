@@ -21,6 +21,7 @@ django-phone-field = "*"
 gunicorn = "*"
 dj-database-url = "*"
 whitenoise = "*"
+psycopg2-binary = "==2.8.6"
 
 [requires]
 python_version = "3.8"
