@@ -35,6 +35,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'social_django',
     'django_registration',
+    'phone_field',
 ]
 
 CRISPY_TEMPLATE_PACK = 'bootstrap3'
