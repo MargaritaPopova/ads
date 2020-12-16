@@ -1,7 +1,9 @@
 # ads
 **Classified Ads App**
 
-To run this app, follow these steps:
+This website is available at: https://ads-mag.herokuapp.com
+
+To run this app locally, follow these steps:
  
 1. Clone the repository:   
 ```git clone https://github.com/MargaritaPopova/ads.git```
