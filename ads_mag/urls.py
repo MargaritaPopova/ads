@@ -15,7 +15,6 @@ urlpatterns = [
                   path('admin/', admin.site.urls),  # Keep
                   path('accounts/', include('django.contrib.auth.urls')),  # Keep
                   url(r'^oauth/', include('social_django.urls', namespace='social')),  # Keep
-                  # path('', TemplateView.as_view(template_name='home/main.html')),
                   path('profile/', include('home.urls')),
                   path('accounts/', include('django.contrib.auth.urls')),
                   path('accounts/', include('django_registration.backends.one_step.urls')),
