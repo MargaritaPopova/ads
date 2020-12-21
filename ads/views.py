@@ -142,11 +142,8 @@ class AddFavoriteView(LoginRequiredMixin, View):
     def post(self, request, pk):
         print("Add PK", pk)
         ad = get_object_or_404(Ad, id=pk)
-        fav = Fav(user=request.user, ad=ad)
-        try:
-            fav.save()  # In case of duplicate key
-        except IntegrityError as e:
-            pass
+        fav = Fav.objects.get_or_create(user=request.user, ad=ad)
+        fav.save()  # In case of duplicate key
         return HttpResponse()
 
 
@@ -156,9 +153,5 @@ class DeleteFavoriteView(LoginRequiredMixin, View):
     def post(self, request, pk):
         print("Delete PK", pk)
         ad = get_object_or_404(Ad, id=pk)
-        try:
-            fav = Fav.objects.get(user=request.user, ad=ad).delete()
-        except Fav.DoesNotExist as e:
-            pass
-
+        Fav.objects.filter(user=request.user, ad=ad).delete()
         return HttpResponse()

@@ -25,11 +25,7 @@ def create_ads():
     reader = csv.reader(fhand)
     next(reader)
     for row in reader:
-        title = row[0]
-        price = row[1]
-        text = row[2]
-        fulldesc = row[3]
-        content_type = row[4]
+        title, price, text, fulldesc, content_type = row
 
         ad = Ad.objects.create(
             title=title,
@@ -76,6 +72,7 @@ def create_user_profiles():
             picture=avatars[user.username],
             user=user
         )
+        print(avatars[user.username])
     print('User profiles created!')
 
 

@@ -12,9 +12,9 @@ class ProfileView(LoginRequiredMixin, View):
     template_name = 'profile.html'
 
     def get(self, request, user_id):
-        u, created = UserProfile.objects.get_or_create(user=User.objects.get(id=user_id))
+        user, created = UserProfile.objects.get_or_create(user=User.objects.get(id=user_id))
         context = {
-            'user': u,
+            'user': user,
         }
         return render(request, self.template_name, context)
 
@@ -25,22 +25,22 @@ class ProfileUpdateView(LoginRequiredMixin, View):
     def get(self, request, user_id):
         pr, created = UserProfile.objects.get_or_create(user=self.request.user)
         form = ProfileForm(instance=pr)
-        ctx = {'form': form}
-        return render(request, self.template_name, ctx)
+        context = {'form': form}
+        return render(request, self.template_name, context)
 
     def post(self, request, user_id):
         if request.user.id != user_id:
             print('Forbidden!')
             return HttpResponseForbidden()
-        pr, created = UserProfile.objects.get_or_create(user=self.request.user)
-        form = ProfileForm(request.POST, request.FILES or None, instance=pr)
+        profile, created = UserProfile.objects.get_or_create(user=self.request.user)
+        form = ProfileForm(request.POST, request.FILES or None, instance=profile)
 
         if not form.is_valid():
             ctx = {'form': form}
             return render(request, self.template_name, ctx)
 
-        pr = form.save(commit=False)
-        pr.save()
+        profile = form.save(commit=False)
+        profile.save()
 
         return redirect(reverse_lazy('home:profile', args=[user_id]))
 
