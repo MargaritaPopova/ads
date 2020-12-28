@@ -34,11 +34,13 @@ class ProfileUpdateView(LoginRequiredMixin, View):
             context = {'form': form}
             return render(request, self.template_name, context)
         else:
-            return HttpResponse('You have no permission to edit this page')
+            return HttpResponse('<p>You have no permission to edit this page</p>'
+                                f'<a href={reverse_lazy("ads:all")}>Go back</a>')
 
     def post(self, request, user_id):
         if request.user.id != user_id:
-            return HttpResponse('You have no permission to edit this page')
+            return HttpResponse('<p>You have no permission to edit this page</p>'
+                                f'<a href={reverse_lazy("ads:all")}>Go back</a>')
         profile, created = UserProfile.objects.get_or_create(user=self.request.user)
         form = ProfileForm(request.POST, request.FILES or None, instance=profile)
 
