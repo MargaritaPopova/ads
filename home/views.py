@@ -1,5 +1,5 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.http import HttpResponseForbidden
+from django.http import HttpResponseForbidden, HttpResponse
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse_lazy
 from django.views import View
@@ -12,26 +12,33 @@ class ProfileView(LoginRequiredMixin, View):
     template_name = 'profile.html'
 
     def get(self, request, user_id):
-        user, created = UserProfile.objects.get_or_create(user=User.objects.get(id=user_id))
-        context = {
-            'user': user,
-        }
-        return render(request, self.template_name, context)
+        try:
+            user = User.objects.get(id=user_id)
+            profile, created = UserProfile.objects.get_or_create(user=user)
+            context = {
+                'user': user,
+                'profile': profile
+            }
+            return render(request, self.template_name, context)
+        except:
+            return HttpResponse('User does not exist')
 
 
 class ProfileUpdateView(LoginRequiredMixin, View):
     template_name = 'profile_form.html'
 
     def get(self, request, user_id):
-        pr, created = UserProfile.objects.get_or_create(user=self.request.user)
-        form = ProfileForm(instance=pr)
-        context = {'form': form}
-        return render(request, self.template_name, context)
+        if request.user.id == user_id:
+            profile, created = UserProfile.objects.get_or_create(user=user_id)
+            form = ProfileForm(instance=profile)
+            context = {'form': form}
+            return render(request, self.template_name, context)
+        else:
+            return HttpResponse('You have no permission to edit this page')
 
     def post(self, request, user_id):
         if request.user.id != user_id:
-            print('Forbidden!')
-            return HttpResponseForbidden()
+            return HttpResponse('You have no permission to edit this page')
         profile, created = UserProfile.objects.get_or_create(user=self.request.user)
         form = ProfileForm(request.POST, request.FILES or None, instance=profile)
 

@@ -5,14 +5,14 @@
 {% block content %}
 
         <div id="overlay" class="overlay text-center" onclick="document.getElementById('overlay').style.display = 'none';">
-            <img id="img-overlay" src="{% if user.picture %} {{ user.picture.url }}
+            <img id="img-overlay" src="{% if profile.picture %} {{ profile.picture.url }}
                                         {% else %} {% static 'no-image.jpg' %}{% endif %}" alt="placeholder">
         </div>
-    <img style="width: 20%" class="rounded border border-dark ad-image" src="{% if user.picture %} {{ user.picture.url }}
+    <img style="width: 20%" class="rounded border border-dark ad-image" src="{% if profile.picture %} {{ profile.picture.url }}
                                         {% else %} {% static 'no-image.jpg' %}{% endif %}"
              alt="userpic" onclick="document.getElementById('overlay').style.display = 'block';">
-    {{ user.user.id }} {{ user.user.username }}
-    <p>{{ user.user.first_name }} {{ user.user.last_name }}</p>
-    <p>{{ user.phone_number }}</p>
-    <p>{{ user.home_address }}</p>
+    {{ user.id }} {{ user.username }}
+    <p>{{ user.first_name }} {{ user.last_name }}</p>
+    <p>{{ profile.phone_number }}</p>
+    <p>{{ profile.home_address }}</p>
 {% endblock %}

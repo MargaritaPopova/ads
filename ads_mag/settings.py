@@ -8,7 +8,7 @@ APP_NAME = 'Ads'
 SECRET_KEY = os.environ.get("SECRET_KEY", "g$iqqu&*mw4_sg3(#ld0sqaalxebel&168^yj%i&sgrw(fmn@w")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = os.environ.get('DEBUG', False)
 
 ALLOWED_HOSTS = ['*']
 
