@@ -15,8 +15,11 @@ class ProfileForm(forms.ModelForm):
         labels = {
             'home_address': 'Your home address',
             'phone_number': 'Phone number',
+            'birthdate': 'Date of birth',
         }
-        fields = ['home_address', 'phone_number', 'picture']
+        fields = ['home_address', 'phone_number', 'birthdate', 'picture']
+        widgets = {'birthdate': forms.SelectDateWidget()}
+
 
 
 

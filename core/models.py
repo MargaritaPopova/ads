@@ -8,3 +8,4 @@ class UserProfile(models.Model):
     phone_number = PhoneField(blank=True, help_text='Contact phone number')
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     picture = models.ImageField(null=True, blank=True)
+    birthdate = models.DateField(null=True, verbose_name='Date of birth', blank=True)

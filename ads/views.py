@@ -1,5 +1,6 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.humanize.templatetags.humanize import naturaltime
+from django.core.exceptions import ObjectDoesNotExist
 from django.db.models import Q
 from django.http import HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
@@ -45,16 +46,19 @@ class AdDetailView(OwnerDetailView):
     template_name = 'ads/ad_detail.html'
 
     def get(self, request, pk):
-        ad = Ad.objects.get(id=pk)
-        comments = Comment.objects.filter(ad=ad).order_by('updated_at')
-        comment_form = CommentForm()
-        context = {
-            'ad': ad,
-            'comments': comments,
-            'comment_form': comment_form,
-            'comments_count': len(comments)
-        }
-        return render(request, self.template_name, context)
+        try:
+            ad = Ad.objects.get(id=pk)
+            comments = Comment.objects.filter(ad=ad).order_by('updated_at')
+            comment_form = CommentForm()
+            context = {
+                'ad': ad,
+                'comments': comments,
+                'comment_form': comment_form,
+                'comments_count': len(comments)
+            }
+            return render(request, self.template_name, context)
+        except ObjectDoesNotExist:
+            return HttpResponse(f'<p>There is no such item</p><a href="{reverse_lazy("ads:all")}">Go back</a>')
 
 
 class AdCreateView(LoginRequiredMixin, View):
