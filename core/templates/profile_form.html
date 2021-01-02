@@ -2,6 +2,7 @@
 {% load crispy_forms_filters %}
 {% load crispy_forms_tags %}
 {% block content %}
+    <div class="col-4">
 <p>
   <form action="" method="post" id="upload_form" enctype="multipart/form-data">
     {% csrf_token %}
@@ -10,6 +11,7 @@
     <input type="submit" value="Cancel" class="btn btn-outline-success" onclick="window.location.href='{% url 'ads:all' %}';return false;">
   </form>
 </p>
+        </div>
 <script>
 $("#upload_form").submit(function() {
   console.log('Checking file size');
