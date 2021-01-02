@@ -6,6 +6,7 @@ from django.views import View
 from django.contrib.auth.models import User
 from .models import UserProfile
 from .forms import ProfileForm
+from django.core.exceptions import ObjectDoesNotExist
 
 
 class ProfileView(LoginRequiredMixin, View):
@@ -20,7 +21,7 @@ class ProfileView(LoginRequiredMixin, View):
                 'profile': profile
             }
             return render(request, self.template_name, context)
-        except:
+        except ObjectDoesNotExist:
             return HttpResponse('User does not exist')
 
 
