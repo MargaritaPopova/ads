@@ -28,7 +28,11 @@
                             <br />
                             <i class="glyphicon glyphicon-globe"></i><a href="http://www.jquery2dotnet.com">yoursite.com</a>
                             <br />
-                            <i class="glyphicon glyphicon-gift"></i>Date of birth not set</p>
+                            <i class="glyphicon glyphicon-gift"></i>
+                            {% if profile.birthdate %}
+                                {{ profile.birthdate }}
+                            {% else %}Date of birth not set{% endif %}
+                            </p>
                     </div>
 
             </div>
