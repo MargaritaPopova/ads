@@ -1,7 +1,7 @@
 from django import forms
 from django.core.files.uploadedfile import InMemoryUploadedFile
 from ads.humanize import naturalsize
-from home.models import UserProfile
+from core.models import UserProfile
 
 
 class ProfileForm(forms.ModelForm):

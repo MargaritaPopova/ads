@@ -7,7 +7,7 @@ import phone_field.models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('home', '0007_auto_20201126_0610'),
+        ('core', '0007_auto_20201126_0610'),
     ]
 
     operations = [

@@ -13,16 +13,16 @@ urlpatterns = [
                   path('', include('ads.urls')),
                   path('admin/', admin.site.urls),
                   path('accounts/', include('django.contrib.auth.urls')),
-                  path(r'^oauth/', include('social_django.urls', namespace='social')),
-                  path('profile/', include('home.urls')),
+                  path('oauth/', include('social_django.urls', namespace='social')),
+                  path('profile/', include('core.urls')),
                   path('accounts/', include('django.contrib.auth.urls')),
                   path('accounts/', include('django_registration.backends.one_step.urls')),
                   path('favicon.ico', serve, {
                       'path': 'favicon.ico',
-                      'document_root': os.path.join(BASE_DIR, 'home/static'),
-                  }
-                       ),
+                      'document_root': os.path.join(BASE_DIR, 'core/static'),
+                  }),
               ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
 
 social_login = 'registration/login_social.html'
 urlpatterns.insert(0,

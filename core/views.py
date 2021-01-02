@@ -51,5 +51,5 @@ class ProfileUpdateView(LoginRequiredMixin, View):
         profile = form.save(commit=False)
         profile.save()
 
-        return redirect(reverse_lazy('home:profile', args=[user_id]))
+        return redirect(reverse_lazy('core:profile', args=[user_id]))
 

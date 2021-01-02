@@ -4,7 +4,7 @@ import random
 from django.contrib.auth.models import User
 
 from ads.models import Ad, Comment, Fav
-from home.models import UserProfile
+from core.models import UserProfile
 from mixer.backend.django import mixer
 
 # pipenv run python manage.py runscript filldata
@@ -21,7 +21,7 @@ def delete_all():
 
 def create_ads():
     print('Creating ads...')
-    fhand = open('home/management/commands/ads.csv')
+    fhand = open('core/management/commands/ads.csv')
     reader = csv.reader(fhand)
     next(reader)
     for row in reader:

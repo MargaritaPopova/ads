@@ -36,7 +36,7 @@
                                     <a href="#" class="text-decoration-none" onclick=
                                             "favPost('{% url 'ads:ad_unfavorite' ad.id %}', {{ ad.id }});return false;"
                                             {% if ad.id not in favorites %} style="display: none;" {% endif %}
-                                       id="favorite_star_{{ ad.id }}">
+                                       id="favorite_heart_{{ ad.id }}">
                         <span class="fa-stack" style="vertical-align: middle;">
                         <i class="fa fa-heart fa-stack-1x" style="color: #337ab7;"></i>
                         <i class="fa fa-heart-o fa-stack-1x"></i>
@@ -46,7 +46,7 @@
                                     <a href="#" class="text-decoration-none" onclick=
                                             "favPost('{% url 'ads:ad_favorite' ad.id %}', {{ ad.id }});return false;"
                                             {% if ad.id in favorites %} style="display: none;" {% endif %}
-                                       id="unfavorite_star_{{ ad.id }}">
+                                       id="unfavorite_heart_{{ ad.id }}">
                         <span class="fa-stack" style="vertical-align: middle;">
                         <i class="fa fa-heart fa-stack-1x" style="display: none; color: #337ab7;"></i>
                         <i class="fa fa-heart-o fa-stack-1x"></i>

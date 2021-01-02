@@ -26,7 +26,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.humanize',
-    'home.apps.HomeConfig',
+    'core.apps.CoreConfig',
     'ads.apps.AdsConfig',
 
     'django_extensions',
@@ -64,7 +64,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                'home.context_processors.settings',
+                'core.context_processors.settings',
                 'social_django.context_processors.backends',
                 'social_django.context_processors.login_redirect',
             ],
