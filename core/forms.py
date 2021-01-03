@@ -18,7 +18,7 @@ class ProfileForm(forms.ModelForm):
             'birthdate': 'Date of birth',
         }
         fields = ['home_address', 'phone_number', 'birthdate', 'picture']
-        widgets = {'birthdate': forms.SelectDateWidget(years=[year for year in range(1930, 2003)])}
+        widgets = {'birthdate': forms.SelectDateWidget(years=range(1930, 2003))}
 
 
 
