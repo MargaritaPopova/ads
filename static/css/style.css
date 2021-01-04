@@ -32,3 +32,6 @@
 .dropdown-item:hover {
     background-color: #454647;
 }
+#brand {
+    font-family: 'Staatliches', cursive;
+}
