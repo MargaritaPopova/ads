@@ -17,6 +17,7 @@ urlpatterns = [
                   path('profile/', include('core.urls')),
                   path('accounts/', include('django.contrib.auth.urls')),
                   path('accounts/', include('django_registration.backends.one_step.urls')),
+                  path('chat/', include('chat.urls')),
                   path('favicon.ico', serve, {
                       'path': 'favicon.ico',
                       'document_root': os.path.join(BASE_DIR, 'core/static'),

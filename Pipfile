@@ -43,6 +43,7 @@ Django = "==3.1.2"
 confusable_homoglyphs = "==3.2.0"
 PyJWT = "==1.7.1"
 pytest-django = "*"
+channels = "*"
 
 [requires]
 python_version = "3.8"

@@ -28,6 +28,7 @@ INSTALLED_APPS = [
     'django.contrib.humanize',
     'core.apps.CoreConfig',
     'ads.apps.AdsConfig',
+    'chat.apps.ChatConfig',
 
     'django_extensions',
     'crispy_forms',
@@ -35,6 +36,7 @@ INSTALLED_APPS = [
     'social_django',
     'django_registration',
     'phone_field',
+    'channels',
 ]
 
 CRISPY_TEMPLATE_PACK = 'bootstrap3'
@@ -73,6 +75,7 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'ads_mag.wsgi.application'
+ASGI_APPLICATION = 'ads_mag.routing.application'
 
 DATABASES = {
     "default": {
