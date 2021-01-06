@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django_registration',
     'phone_field',
     'channels',
+    'channels_redis',
 ]
 
 CRISPY_TEMPLATE_PACK = 'bootstrap3'
@@ -73,6 +74,15 @@ TEMPLATES = [
         },
     },
 ]
+
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "channels_redis.core.RedisChannelLayer",
+        "CONFIG": {
+            "hosts": [("localhost", 6379)],
+        },
+    },
+}
 
 WSGI_APPLICATION = 'ads_mag.wsgi.application'
 ASGI_APPLICATION = 'ads_mag.routing.application'
