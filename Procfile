@@ -1,1 +1,1 @@
-web: gunicorn ads_mag.wsgi --log-file -
+web: daphne ads_mag.asgi:application --port $PORT --bind 0.0.0.0

@@ -45,6 +45,7 @@ PyJWT = "==1.7.1"
 pytest-django = "*"
 channels = "*"
 channels-redis = "*"
+daphne = "*"
 
 [requires]
 python_version = "3.8"
