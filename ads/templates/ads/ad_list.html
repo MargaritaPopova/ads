@@ -71,8 +71,8 @@
             console.log('Requesting JSON');
             $.post(url, {}, function () {
                 console.log(url, 'finished');
-                $("#unfavorite_star_" + ad_id).toggle();
-                $("#favorite_star_" + ad_id).toggle();
+                $("#unfavorite_heart_" + ad_id).toggle();
+                $("#favorite_heart_" + ad_id).toggle();
             }).fail(function (xhr) {
                 alert('Url failed with ' + xhr.status + ' ' + url);
             });

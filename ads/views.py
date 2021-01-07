@@ -144,7 +144,7 @@ class AddFavoriteView(LoginRequiredMixin, View):
     def post(self, request, pk):
         print("Add PK", pk)
         ad = get_object_or_404(Ad, id=pk)
-        fav = Fav.objects.get_or_create(user=request.user, ad=ad)
+        fav, created = Fav.objects.get_or_create(user=request.user, ad=ad)
         fav.save()  # In case of duplicate key
         return HttpResponse()
 
