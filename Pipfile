@@ -46,6 +46,7 @@ pytest-django = "*"
 channels = "*"
 channels-redis = "*"
 daphne = "*"
+django-redis-cache = "*"
 
 [requires]
 python_version = "3.8"
