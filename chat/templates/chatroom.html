@@ -1,5 +1,5 @@
 <html lang="en">
-
+{% extends 'base_menu.html' %}
 <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -23,9 +23,9 @@
                         <textarea class="form-control" id="chat-text" rows="10"></textarea><br>
                     </div>
                     <div class="form-group">
-                        <input class="form-control" id="input" type="text"></br>
+                        <input class="form-control" id="input" type="text" placeholder="Type your message here..."></br>
                     </div>
-                    <input class="btn btn-secondary btn-lg btn-block" id="submit" type="button" value="Send">
+                    <input class="btn btn-success btn-lg btn-block" id="submit" type="button" value="Send">
                 </form>
             </div>
         </div>
@@ -44,9 +44,6 @@
             }));
             messageInputDom.value = '';
         };
-
-
-
 
         const roomName = JSON.parse(document.getElementById('room-name').textContent);
 

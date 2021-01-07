@@ -30,6 +30,10 @@
             {% endif %}
         </div>
         <div class="col-8">
+            <button type="button" class="btn btn-success btn-sm"
+                    value="contact">
+                <a href="{% url 'chat:room' ad.owner %}"
+                   style="color: white" class="nav-link">Contact seller</a></button>
             <h4>{{ ad.text }}</h4>
             <p>{{ ad.fulldesc }}</p>
         </div>
