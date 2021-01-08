@@ -72,7 +72,6 @@ def create_user_profiles():
             picture=avatars[user.username],
             user=user
         )
-        print(avatars[user.username])
     print('User profiles created!')
 
 
