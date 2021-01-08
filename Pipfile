@@ -47,6 +47,7 @@ channels = "*"
 channels-redis = "*"
 daphne = "*"
 django-redis-cache = "*"
+redis = "*"
 
 [requires]
 python_version = "3.8"
