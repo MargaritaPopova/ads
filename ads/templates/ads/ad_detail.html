@@ -32,6 +32,7 @@
         <div class="col-8">
             <a href="{% url 'chat:room' ad.owner %}" class="btn btn-sm btn-success">Contact seller</a>
             <h4>{{ ad.text }}</h4>
+            <h5>{{ ad.price }}</h5>
             <p>{{ ad.fulldesc }}</p>
         </div>
     </div>

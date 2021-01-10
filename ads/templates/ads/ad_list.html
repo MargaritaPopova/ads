@@ -30,6 +30,7 @@
                             <div class="card-body">
                                 <h5 class="card-title">{{ ad.title }}</h5>
                                 <p class="card-text">{{ ad.text }}</p>
+                                <p class="card-text font-weight-bold">{{ ad.price }}</p>
                                 <a href="{% url 'ads:ad_detail'  ad.id %}" class="btn btn-sm btn-success">See detail</a>
                                 {% if user.is_authenticated %}
                                     <!-- Two hrefs with two stacked icons each - one showing and one hidden -->
