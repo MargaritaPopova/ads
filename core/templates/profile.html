@@ -26,8 +26,6 @@
                         <p>
                             <i class="glyphicon glyphicon-envelope"></i>{{ user.email }}
                             <br />
-                            <i class="glyphicon glyphicon-globe"></i><a href="http://www.jquery2dotnet.com">yoursite.com</a>
-                            <br />
                             <i class="glyphicon glyphicon-gift"></i>
                             {{ profile.phone_number }}
                         <br>
@@ -38,8 +36,10 @@
                     </div>
 
             </div>
+            {% if request.user == user %}
             <div class="btn btn-sm btn-success mt-2"><a href="{% url 'core:profile_update' user.id %}"
                                                        style="color: white" class="nav-link"> Edit your profile </a></div>
+            {% endif %}
                 </div>
         </div>
     </div>
