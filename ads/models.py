@@ -1,5 +1,5 @@
 from django.conf import settings
-from django.core.validators import MinLengthValidator, MaxLengthValidator
+from django.core.validators import MinLengthValidator, MaxLengthValidator, MinValueValidator, MaxValueValidator
 from django.db import models
 
 
@@ -8,7 +8,8 @@ class Ad(models.Model):
         max_length=200,
         validators=[MinLengthValidator(2, "Title must be greater than 2 characters")]
     )
-    price = models.DecimalField(max_digits=7, decimal_places=2, null=True)
+    price = models.DecimalField(max_digits=7, decimal_places=2, null=True,
+                                validators=[MinValueValidator(0)])
     text = models.CharField(max_length=250,
                             validators=[MaxLengthValidator(250, 'Description must be less than 250 characters')])
     fulldesc = models.TextField(default="")

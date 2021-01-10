@@ -21,7 +21,7 @@ class AdListView(OwnerListView):
 
         search = request.GET.get("search", False)
         if search:
-            query = Q(title__contains=search)
+            query = Q(title__contains=search.capitalize())
             query.add(Q(text__contains=search), Q.OR)
             ads = Ad.objects.filter(query).select_related().order_by('-updated_at')[:10]
         else:
