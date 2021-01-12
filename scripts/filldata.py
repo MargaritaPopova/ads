@@ -59,17 +59,10 @@ def create_ads():
 def create_user_profiles():
     print('Creating user profiles...')
     users = User.objects.all()
-    avatars = {
-        'johnwick': path.join(AVATAR_DIR, 'wick.jpg'),
-        'brucewayne': path.join(AVATAR_DIR, 'wayne.jpg'),
-        'jasonbourne': path.join(AVATAR_DIR, 'bourne.jpg'),
-        'jamesbond': path.join(AVATAR_DIR, 'bond.jpg'),
-    }
     for user in users:
         UserProfile.objects.create(
             home_address='123 Elm street',
             phone_number='384783745875',
-            picture=avatars[user.username],
             user=user
         )
     print('User profiles created!')
