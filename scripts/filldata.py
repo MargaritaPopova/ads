@@ -105,7 +105,8 @@ def create_users():
                                    first_name=user['firstname'],
                                    last_name=user['lastname'],
                                    email=user['email'],
-                                   is_staff=user['is_staff'])
+                                   is_staff=user['is_staff'],
+                                   password='12345678qwerty')
     print('Users created!')
 
 
