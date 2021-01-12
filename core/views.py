@@ -54,3 +54,11 @@ class ProfileUpdateView(LoginRequiredMixin, View):
 
         return redirect(reverse_lazy('core:profile', args=[user_id]))
 
+
+def stream_file(request, pk):
+    profile = get_object_or_404(UserProfile, id=pk)
+    response = HttpResponse()
+    response['Content-Type'] = profile.content_type
+    response['Content-Length'] = len(profile.picture)
+    response.write(profile.picture)
+    return response

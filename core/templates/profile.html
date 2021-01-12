@@ -16,7 +16,7 @@
 
                     <div class="col-sm-6 col-md-4">
                         <img class="img-overlay" style="width: 150px"
-                             src="{% if profile.picture %} {{ profile.picture.url }}
+                             src="{% if profile.picture %} {% url 'core:profile_picture' profile.id %}
                                         {% else %} {% static 'no-image.jpg' %}{% endif %}" alt="placeholder">
                     </div>
                     <div class="col-sm-6 col-md-8">
