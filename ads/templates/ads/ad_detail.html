@@ -47,7 +47,8 @@
                 {% for comment in comments %}
                     <div class="media">
                         <a class="float-left mr-3 mt-2" href="{% url 'core:profile' comment.owner.id %}">
-                            <img src="{% if comment.owner.userprofile.picture %} {{ comment.owner.userprofile.picture.url }}
+                            <img src="{% if comment.owner.userprofile.picture %}
+                                {% url 'core:profile_picture' comment.owner.userprofile.id %}
                                         {% else %} {% static 'no-image.jpg' %}{% endif %}"
                                  alt="userpic" style="width: 50px">
                         </a>
