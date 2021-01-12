@@ -9,7 +9,7 @@
                 <form>
                     <div class="form-group">
                         <label for="exampleFormControlTextarea1" class="h4 pt-5">Chatroom</label>
-                        <textarea class="form-control" id="chat-text" rows="10"></textarea><br>
+                        <div class="card bg-light px-3 py-2" id="chat-text" style="min-height: 100px"></div>
                     </div>
                     <div class="form-group">
                         <input class="form-control" id="input" type="text" placeholder="Type your message here..."></br>
@@ -47,7 +47,7 @@
         chatSocket.onmessage = function (e) {
             const data = JSON.parse(e.data);
             console.log(data)
-            document.querySelector('#chat-text').value += (data.username + ': ' + data.message + '\n')
+            document.querySelector('#chat-text').innerHTML += `<p><strong>${data.username}:</strong> ${data.message}</p>`
         }
     </script>
 
