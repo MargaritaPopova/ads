@@ -22,8 +22,10 @@
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdownMenuLink"
                            role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <img style="width: 25px;" src="{% if profile.picture %} {% url 'core:profile_picture' profile.id %}
-                                        {% else %} {% static 'no-image.jpg' %}{% endif %}" alt="placeholder"/><b class="caret"></b>
+                            <img style="width: 25px;" src="{% if request.user.userprofile.picture %}
+                                                    {% url 'core:profile_picture' request.user.userprofile.id %}
+                                        {% else %} {% static 'no-image.jpg' %}{% endif %}" alt="placeholder"/>
+                            <b class="caret"></b>
                         </a>
                         <div class="dropdown-menu bg-dark" aria-labelledby="navbarDropdownMenuLink">
                             <a class="dropdown-item text-white" href="{% url 'core:profile' request.user.id %}">Profile</a>
