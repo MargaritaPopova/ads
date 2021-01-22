@@ -51,7 +51,9 @@ class Fav(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
 
     class Meta:
-        unique_together = ['ad', 'user']
+        constraints = [
+            models.UniqueConstraint(fields=['ad', 'user'], name='unique fav')
+        ]
 
     def __str__(self):
         return '%s likes %s' % (self.user.username, self.ad.title[:10])
