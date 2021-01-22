@@ -17,18 +17,19 @@ class AdListView(OwnerListView):
     model = Ad
     template_name = 'ads/ad_list.html'
 
-    def get(self, request):
-
-        search = request.GET.get("search", False)
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        search = self.request.GET.get("search", False)
         if search:
-            query = Q(title__contains=search.capitalize())
-            query.add(Q(text__contains=search), Q.OR)
-            ads = Ad.objects.filter(query).select_related().order_by('-updated_at')[:10]
+            query = Q(title__icontains=search)
+            query.add(Q(text__icontains=search), Q.OR)
+            self.ads = queryset.filter(query).select_related().order_by('-updated_at')[:10]
         else:
-            ads = Ad.objects.all().order_by('-updated_at')[:10]
+            self.ads = queryset
 
-        # Augment the post_list
-        for obj in ads:
+    def get(self, request):
+        self.get_queryset()
+        for obj in self.ads:
             obj.natural_updated = naturaltime(obj.updated_at)
 
         favorites = list()
@@ -36,7 +37,7 @@ class AdListView(OwnerListView):
             rows = request.user.favorite_ads.values('id')
             favorites = [row['id'] for row in rows]
 
-        ctx = {'ad_list': ads, 'search': search, 'favorites': favorites}
+        ctx = {'ad_list': self.ads, 'favorites': favorites}
 
         return render(request, self.template_name, ctx)
 
