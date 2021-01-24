@@ -48,7 +48,7 @@ class AdDetailView(OwnerDetailView):
 
     def get(self, request, pk):
         try:
-            ad = Ad.objects.get(id=pk)
+            ad = get_object_or_404(Ad, id=pk)
             comments = Comment.objects.filter(ad=ad).order_by('updated_at')
             comment_form = CommentForm()
             context = {
@@ -58,7 +58,7 @@ class AdDetailView(OwnerDetailView):
                 'comments_count': len(comments)
             }
             return render(request, self.template_name, context)
-        except ObjectDoesNotExist:
+        except Ad.DoesNotExist:
             return HttpResponse(f'<p>There is no such item</p><a href="{reverse_lazy("ads:all")}">Go back</a>')
 
 
